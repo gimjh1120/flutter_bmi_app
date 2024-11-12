@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
 class GenderBox extends StatelessWidget {
+  GenderBox(this.isMale, this.onChanged);
+
+  bool isMale;
+  void Function(bool newValue) onChanged;
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Row(
       children: [
-        gender(context, Icons.male, 'MALE', true),
+        gender(context, Icons.male, 'MALE', isMale, true),
         SizedBox(width: 8),
-        gender(context, Icons.female, 'FEMALE', false),
+        gender(context, Icons.female, 'FEMALE', !isMale, false),
       ],
     );
   }
@@ -18,43 +23,49 @@ class GenderBox extends StatelessWidget {
     IconData icon,
     String text,
     bool selected,
+    bool isMaleBox,
   ) {
     return Expanded(
-      child: Container(
-        height: 150,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Theme.of(context).dividerColor,
-          ),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: 10,
-              left: 10,
-              child: Opacity(
-                opacity: 0.3,
-                child: Icon(
-                  icon,
-                  size: 80,
-                ),
-              ),
+      child: GestureDetector(
+        onTap: () {
+          onChanged(isMaleBox);
+        },
+        child: Container(
+          height: 150,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Theme.of(context).dividerColor,
             ),
-            Positioned(
-              right: 20,
-              bottom: 20,
-              child: Opacity(
-                opacity: selected ? 1 : 0.3,
-                child: Text(
-                  text,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                top: 10,
+                left: 10,
+                child: Opacity(
+                  opacity: 0.3,
+                  child: Icon(
+                    icon,
+                    size: 80,
                   ),
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                right: 20,
+                bottom: 20,
+                child: Opacity(
+                  opacity: selected ? 1 : 0.3,
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

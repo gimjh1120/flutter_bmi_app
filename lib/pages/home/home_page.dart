@@ -1,8 +1,36 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bmi_app/pages/home/widgets/gender_box.dart';
 import 'package:flutter_bmi_app/pages/home/widgets/slider_box.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+  bool isMale = true;
+  void onGenderChanged(bool male) {
+    setState(() {
+      isMale = male;
+    });
+  }
+
+  double height = 170;
+  void onHeightChanged(double newHeight) {
+    setState(() {
+      height = newHeight;
+    });
+  }
+
+  double weight = 70;
+  void onWeightChanged(double newWeight) {
+    setState(() {
+      weight = newWeight;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,11 +44,21 @@ class Homepage extends StatelessWidget {
         ),
         child: Column(
           children: [
-            GenderBox(),
+            GenderBox(isMale, onGenderChanged),
             Spacer(),
-            SliderBox(label: 'HEIGHT', unit: 'cm', value: 170),
+            SliderBox(
+              label: 'HEIGHT',
+              unit: 'cm',
+              value: height,
+              onChanged: onHeightChanged,
+            ),
             Spacer(),
-            SliderBox(label: 'WEIGHT', unit: 'kg', value: 70),
+            SliderBox(
+              label: 'WEIGHT',
+              unit: 'kg',
+              value: weight,
+              onChanged: onWeightChanged,
+            ),
             Spacer(),
             SizedBox(
               width: double.infinity,
