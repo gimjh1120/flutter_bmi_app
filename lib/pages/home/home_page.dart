@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter_bmi_app/pages/home/widgets/gender_box.dart';
 import 'package:flutter_bmi_app/pages/home/widgets/slider_box.dart';
+import 'package:flutter_bmi_app/pages/result/result_page.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -64,7 +65,18 @@ class _HomepageState extends State<Homepage> {
               width: double.infinity,
               height: 56,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  final meterHeight = height / 100;
+                  final bmi = weight / (meterHeight * meterHeight);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ResultPage(bmi);
+                      },
+                    ),
+                  );
+                },
                 child: Text('CALCULATE'),
               ),
             ),
