@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bmi_app/pages/home/widgets/gender_box.dart';
+import 'package:flutter_bmi_app/pages/home/widgets/slider_box.dart';
 
 class Homepage extends StatelessWidget {
   @override
@@ -7,49 +9,29 @@ class Homepage extends StatelessWidget {
       appBar: AppBar(
         title: Text('BMI CALCULATOR'),
       ),
-      body: Column(
-        children: [
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              border: Border.all(color: Theme.of(context).dividerColor),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 60,
+        ),
+        child: Column(
+          children: [
+            GenderBox(),
+            Spacer(),
+            SliderBox(label: 'HEIGHT', unit: 'cm', value: 170),
+            Spacer(),
+            SliderBox(label: 'WEIGHT', unit: 'kg', value: 70),
+            Spacer(),
+            SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text('CALCULATE'),
+              ),
             ),
-          ),
-          Icon(Icons.male),
-          Text('Male'),
-          Slider(
-            value: 50,
-            onChanged: (v) {},
-            min: 10,
-            max: 100,
-          ),
-          SizedBox(
-            width: 200,
-            height: 56,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Text('CALCULATE'),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            width: 200,
-            height: 56,
-            child: OutlinedButton(
-              onPressed: () {},
-              child: Text('RECALCULATE'),
-            ),
-          ),
-          Text(
-            'test',
-            style: TextStyle(
-              color: Theme.of(context).highlightColor,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
